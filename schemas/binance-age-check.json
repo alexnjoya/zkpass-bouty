@@ -12,7 +12,7 @@
         "assert": [
           {
             "key": "data|fillInfo|dob",
-            "value": "2005-11-12",
+            "value": "2005-01-01",
             "operation": "<="
           }
         ],
