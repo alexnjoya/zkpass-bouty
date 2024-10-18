@@ -1,0 +1,28 @@
+{
+  "issuer": "Binance",
+  "desc": "One of the world's largest social media websites and source of news",
+  "website": "https://www.binance.com/en/my/settings/kyc",
+  "APIs": [
+    {
+      "host": "www.binance.com/en/my/settings/kyc",
+      "intercept": {
+        "url": "bapi/kyc/v2/private/certificate/user-kyc/current-kyc-status",
+        "method": "GET"
+      },
+      "assert": [
+        {
+          "key": "birthday",
+          "value": " 2005-01-01",
+          "operation": ">="
+        }
+      ],
+      "nullifier": "birthday"
+    }
+  ],
+  "HRCondition": [
+    "Binance Age check"
+  ],
+  "tips": {
+    "message": "When you successfully log in, please click the 'Start' button to initiate the verification process."
+  }
+}

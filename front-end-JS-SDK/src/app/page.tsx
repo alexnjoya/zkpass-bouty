@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { useState } from "react";
 import styles from "./page.module.css";
 import TransgateConnect from "@zkpass/transgate-js-sdk";
@@ -7,47 +7,24 @@ import { ethers } from "ethers";
 import AttestationABI from "./AttestationABI.json";
 import { Res } from "./lib/types";
 import verifyEvmBasedResult from "./verifyEvmBasedResult";
+import Image from 'next/image'
+import banner from './assets/banner.jpg'
 
-const FormGrid = ({ children }: { children: React.ReactNode }) => (
-  <div className="grid gap-9 grid-cols-1 max-w-2xl mx-auto my-12">{children}</div>
-);
+// Define a Movie interface
+interface Movie {
+  title: string;
+  year: number;
+  director: string;
+  videoUrl: string; // Added videoUrl property
+}
 
-const FormContainer = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex flex-col items-center w-full">{children}</div>
-);
+// Sample movie data
+const movies: Movie[] = [
+  { title: "Inception", year: 2010, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D" },
+  { title: "The Matrix", year: 1999, director: "The Wachowskis", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D" },
+  { title: "Interstellar", year: 2014, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D" }, // Added new movie
 
-const FormItem = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex flex-col justify-start items-start w-full mb-4">{children}</div>
-);
-
-const Label = ({ children }: { children: React.ReactNode }) => (
-  <div className="text-right text-lg font-bold text-white mb-2">{children}</div>
-);
-
-const Input = (props: React.InputHTMLAttributes<HTMLInputElement>) => (
-  <input
-    {...props}
-    className="block bg-white rounded h-9 leading-9 w-full px-4 outline-none text-black"
-  />
-);
-
-const Button = ({ children, disabled, onClick }: { children: React.ReactNode, disabled?: boolean, onClick?: () => void }) => (
-  <button
-    onClick={onClick}
-    disabled={disabled}
-    className={`relative block min-w-[120px] h-9 leading-9 px-4 text-center border-none rounded text-sm bg-[#c5ff4a] text-black ${disabled ? "cursor-not-allowed" : "cursor-pointer"} active:border active:border-gray-400 active:text-gray-700`}
-  >
-    {children}
-  </button>
-);
-
-const RightContainer = ({ children }: { children: React.ReactNode }) => (
-  <div className="col-span-1">{children}</div>
-);
-
-const Title = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="text-white text-center">{children}</h2>
-);
+];
 
 declare global {
   interface Window {
@@ -55,18 +32,19 @@ declare global {
   }
 }
 
-export default function Home() {
-  const [appid1, setAppid1] = useState<string>(
-    "fc110457-b954-482a-b73d-710316120d2c"
-  );
-  const [value1, setValue1] = useState<string>(
-    "ec0661b638474c16b59621a44951d14a"
-  );
+const page = () => {
+  const [appid1, setAppid1] = useState<string>("fc110457-b954-482a-b73d-710316120d2c");
+  const [value1, setValue1] = useState<string>("ec0661b638474c16b59621a44951d14a");
   const [result, setResult] = useState<any>();
   const [attestAtationTx, setAttestAtationTx] = useState<string>();
 
+
+  // Starting customization 
+
+
   const start = async (schemaId: string, appid: string) => {
     try {
+      const appid = "8fb9d43c-2f24-424e-a98d-7ba34a5532f5"
       const connector = new TransgateConnect(appid);
       const isAvailable = await connector.isTransgateAvailable();
       if (!isAvailable) {
@@ -94,7 +72,7 @@ export default function Home() {
 
 
 
-      const res = await connector.launch(schemaId, account) as Res ;
+      const res = await connector.launch(schemaId, account) as Res;
       setResult(res);
 
       const isVerified = verifyEvmBasedResult(res, schemaId)
@@ -126,56 +104,42 @@ export default function Home() {
     }
   };
 
+  //ending customization
+
+
+
+
   return (
-    <main className={styles.main}>
-      <Title>zkPass Transgate JS-SDK Demo(send to evm chain)</Title>
-      <FormGrid>
-        <FormContainer>
-          <FormItem>
-            <Label>Appid:</Label>
-            <Input
-              value={appid1}
-              onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setAppid1(e.target.value?.trim())
-              }
-            />
-          </FormItem>
-          <FormItem>
-            <Label>Schema Id:</Label>
-            <Input
-              value={value1}
-              onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setValue1(e.target.value?.trim())
-              }
-            />
-          </FormItem>
-          <FormItem>
-            <RightContainer>
-              <Button onClick={() => start(value1, appid1)}>Run</Button>
-            </RightContainer>
-          </FormItem>
-          <FormItem>
-            {attestAtationTx && (
-              <>
-                <Label>AttestationTx:</Label>
-                <a href={"https://explorer-holesky.morphl2.io/tx/" + attestAtationTx} target="_blank" rel="noopener noreferrer">
-                  {attestAtationTx}
-                </a>
-              </>
-            )}
-            {result && (
-              <>
-                <Label>Result:</Label>
-                <JSONPretty
-                  themeClassName="custom-json-pretty"
-                  id="json-pretty"
-                  data={result}
-                ></JSONPretty>
-              </>
-            )}
-          </FormItem>
-        </FormContainer>
-      </FormGrid>
-    </main>
-  );
+    <div className="container mx-auto p-2">
+      <h1 className="text-4xl font-bold mb-6 text-center">Trending Movies</h1>
+
+      <div className='flex justify-center  items-center pl-5  mx-auto' >
+        <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
+          {movies.map((movie, index) => (
+            <li key={index} className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <Image
+                src={banner} // Use the imported image here
+                alt={`${movie.title} banner`}
+                className="w-full h-48 object-cover rounded-t-lg" // Add styling as needed
+              />
+              <h2 className="text-xl font-semibold">{movie.title}</h2>
+              <p className="text-gray-600">({movie.year})</p>
+              <p className="text-gray-500 italic">Directed by {movie.director}</p>
+              <div className="mt-2">
+                <button
+                  onClick={() => window.open(movie.videoUrl, '_blank')}
+                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                >
+                  Watch Video
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </div>
+  )
 }
+
+export default page
