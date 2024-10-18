@@ -4,7 +4,7 @@ const Header: React.FC = () => {
   return (
     <header className="p-4 mt-10 ">
       
-      <nav className="flex fixed top-0  justify-end items-center">
+      <nav className="flex fixed top-0 mt-5  justify-end items-center">
       
       <div className='flex  justify-start'>
       <h1 className="text-white ml-2 flex justify-start text-2xl">MoveMe</h1>
