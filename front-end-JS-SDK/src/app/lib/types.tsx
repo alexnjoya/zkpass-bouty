@@ -9,4 +9,7 @@ export interface Res  {
     validator: string;
     recipient: string;
     originAddress: string;
+    attestationTx: string;
+    attestationTxUrl: string;
+    header: string;
   };

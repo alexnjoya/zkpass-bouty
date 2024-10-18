@@ -10,6 +10,8 @@ import banner0 from './assets/banner0.jpg'
 import banner1 from './assets/banner1.jpg'
 import banner2 from './assets/banner2.jpg'
 import { StaticImageData } from 'next/image'
+import Header from './components/header';
+
 
 // Define a Movie interface
 interface Movie {
@@ -111,8 +113,9 @@ const page = () => {
 
 
   return (
-    <div className="container mx-auto p-2">
-      <h1 className="text-4xl font-bold mb-6 text-center">Trending Movies</h1>
+    <div className="container mb-20 mx-auto p-2">
+      <Header  />
+      <h2 className="text-4xl font-bold ml-7 mt-10 mb-6 text-left">Trending Movies</h2>
 
       <div className='flex justify-center items-center pl-5 mx-auto'>
         <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
