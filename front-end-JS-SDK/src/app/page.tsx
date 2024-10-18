@@ -8,7 +8,10 @@ import AttestationABI from "./AttestationABI.json";
 import { Res } from "./lib/types";
 import verifyEvmBasedResult from "./verifyEvmBasedResult";
 import Image from 'next/image'
-import banner from './assets/banner.jpg'
+import banner0 from './assets/banner0.jpg'
+import banner1 from './assets/banner1.jpg'
+import banner2 from './assets/banner2.jpg'
+import { StaticImageData } from 'next/image'
 
 // Define a Movie interface
 interface Movie {
@@ -16,14 +19,14 @@ interface Movie {
   year: number;
   director: string;
   videoUrl: string; // Added videoUrl property
+  banner: StaticImageData; // Changed to StaticImageData type
 }
 
 // Sample movie data
 const movies: Movie[] = [
-  { title: "Inception", year: 2010, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D" },
-  { title: "The Matrix", year: 1999, director: "The Wachowskis", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D" },
-  { title: "Interstellar", year: 2014, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D" }, // Added new movie
-
+  { title: "Inception", year: 2010, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D", banner: banner0  },
+  { title: "The Matrix", year: 1999, director: "The Wachowskis", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D", banner: banner1  },
+  { title: "Interstellar", year: 2014, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D", banner: banner2  }, // Added new movie
 ];
 
 declare global {
@@ -97,14 +100,9 @@ const page = () => {
 
       const t = await contract.attest(chainParams);
       setAttestAtationTx(t.hash);
-      alert("Transaction sent successfully!");
-      // Open the video URL after the alert
-      if (movies.length > 0) {
-        window.open(movies[0].videoUrl);
-      }
-
+      alert("Transaction sent successfully!"); // Moved alert before setting video URL
       // Set the current video URL to play
-      setCurrentVideoUrl(videoUrl);
+      setCurrentVideoUrl(videoUrl); 
     } catch (err) {
       alert(JSON.stringify(err));
       console.log("error", err);
@@ -123,7 +121,7 @@ const page = () => {
           {movies.map((movie, index) => (
             <li key={index} className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               <Image
-                src={banner} 
+                src={movie.banner} 
                 alt={`${movie.title} banner`}
                 className="w-full h-48 object-cover rounded-t-lg" 
               />
@@ -145,19 +143,28 @@ const page = () => {
 
       {/* Video Player Section */}
       {currentVideoUrl && (
-        <div className="mt-4 flex justify-center"> {/* Centering the iframe */}
-          <h2 className="text-2xl font-bold mb-10">Now Playing:</h2>
+        <div className="mt-4 flex justify-center relative"> 
           <iframe
-            width="560"
+            width="700"
             height="315"
-            src={currentVideoUrl.replace("watch?v=", "embed/")} // Embed format
+            src={`https://www.youtube.com/embed/${new URL(currentVideoUrl).searchParams.get("v")}?autoplay=1`} // Updated to extract video ID for embedding
             title="YouTube video player"
-            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
         </div>
       )}
+
+      {/* Transaction Link Section */}
+      {attestAtationTx && ( // Added transaction link display
+        <div className="flex justify-center mt-4"> {/* Centering the transaction link */}
+          <label>AttestationTx:</label>
+          <a href={"https://explorer-holesky.morphl2.io/tx/" + attestAtationTx} target="_blank" rel="noopener noreferrer" className="ml-2"> {/* Added margin for spacing */}
+            {attestAtationTx}
+          </a>
+        </div>
+      )}
+
     </div>
   )
 }
