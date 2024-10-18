@@ -14,7 +14,7 @@ import Header from './components/header';
 import Footer from './components/footer';
 
 
-// Define a Movie interface
+//  Movie interface
 interface Movie {
   title: string;
   year: number;
@@ -23,7 +23,7 @@ interface Movie {
   banner: StaticImageData; 
 }
 
-// Sample movie data
+//  movie data
 const movies: Movie[] = [
   { title: "Inception", year: 2010, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D", banner: banner0  },
   { title: "The Matrix", year: 1999, director: "The Wachowskis", videoUrl: "https://www.youtube.com/watch?v=uY5oF0tZiWI&pp=ygUWYmVzdCBtb3ZpZXMgb2YgYWxsdGltZQ%3D%3D", banner: banner1  },

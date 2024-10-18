@@ -16,8 +16,8 @@ Follow these steps to set up the project locally:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/alexnjoya/zkpass-bouty.git
-   cd zkpass-bouty
+   git clone https://github.com/alexnjoya/zkpass-bounty.git
+   cd zkpass-bounty
    cd front-end-JS-SDK
    ```
 
@@ -35,6 +35,12 @@ Follow these steps to set up the project locally:
 
 4. **Open your browser**:
    Navigate to `http://localhost:3000` (or the port specified in your configuration) to view the application.
+
+## Schema Setup
+
+- Head over to https://dev.zkpass.org/ to create a new project and a custom schema.
+- Replace the `apid` and the `schemaid` in the project in the `page.tsx` file.
+### NOTE: Make sure your project domain is `localhost:3000` when testing locally, and replace it with your own domain when deploying.
 
 ## Usage
 
