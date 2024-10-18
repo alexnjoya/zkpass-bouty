@@ -26,8 +26,8 @@ interface Movie {
 // Sample movie data
 const movies: Movie[] = [
   { title: "Inception", year: 2010, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D", banner: banner0  },
-  { title: "The Matrix", year: 1999, director: "The Wachowskis", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D", banner: banner1  },
-  { title: "Interstellar", year: 2014, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D", banner: banner2  }, // Added new movie
+  { title: "The Matrix", year: 1999, director: "The Wachowskis", videoUrl: "https://www.youtube.com/watch?v=uY5oF0tZiWI&pp=ygUWYmVzdCBtb3ZpZXMgb2YgYWxsdGltZQ%3D%3D", banner: banner1  },
+  { title: "Interstellar", year: 2014, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=bCE_OXANUG0&pp=ygUZdG9wIDEwIGFjdGlvbiBtb3ZpZXMgMjAyMw%3D%3D", banner: banner2  }, // Added new movie
 ];
 
 declare global {
@@ -42,10 +42,6 @@ const page = () => {
   const [result, setResult] = useState<any>();
   const [attestAtationTx, setAttestAtationTx] = useState<string>();
   const [currentVideoUrl, setCurrentVideoUrl] = useState<string | null>(null);
-
-
-  // Starting customization 
-
 
   const start = async (schemaId: string, appid: string, videoUrl: string) => {
     try {
@@ -74,8 +70,6 @@ const page = () => {
         signer
       );
 
-
-
       const res = await connector.launch(schemaId, account) as Res;
       setResult(res);
 
@@ -101,7 +95,7 @@ const page = () => {
 
       const t = await contract.attest(chainParams);
       setAttestAtationTx(t.hash);
-      alert("Transaction sent successfully!"); // Moved alert before setting video URL
+      alert("Transaction sent successfully!"); 
       // Set the current video URL to play
       setCurrentVideoUrl(videoUrl); 
     } catch (err) {
@@ -128,7 +122,7 @@ const page = () => {
               <p className="text-gray-500 italic">Directed by {movie.director}</p>
               <div className="mt-2">
                 <button
-                  onClick={() => start(value1, appid1, movie.videoUrl)} // Pass videoUrl
+                  onClick={() => start(value1, appid1, movie.videoUrl)} 
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
                   Watch Video
