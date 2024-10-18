@@ -1,8 +1,6 @@
 "use client"
 import { useState } from "react";
-import styles from "./page.module.css";
 import TransgateConnect from "@zkpass/transgate-js-sdk";
-import JSONPretty from "react-json-pretty";
 import { ethers } from "ethers";
 import AttestationABI from "./AttestationABI.json";
 import { Res } from "./lib/types";
@@ -18,8 +16,8 @@ interface Movie {
   title: string;
   year: number;
   director: string;
-  videoUrl: string; // Added videoUrl property
-  banner: StaticImageData; // Changed to StaticImageData type
+  videoUrl: string; 
+  banner: StaticImageData; 
 }
 
 // Sample movie data
