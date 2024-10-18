@@ -1,0 +1,28 @@
+{
+    "issuer": "Binance",
+    "desc": "Binance KYC age verification schema",
+    "website": "https://www.binance.com/en/my/dashboard",
+    "APIs": [
+      {
+        "host": "www.binance.com",
+        "intercept": {
+          "url": "bapi/kyc/v2/private/certificate/user-kyc/current-kyc-status",
+          "method": "POST"
+        },
+        "assert": [
+          {
+            "key": "data|fillInfo|dob",
+            "value": "2005-11-12",
+            "operation": "<="
+          }
+        ],
+        "nullifier": "data|fillInfo|dob"
+      }
+    ],
+    "HRCondition": [
+      "User must be at least 18 years old"
+    ],
+    "tips": {
+      "message": "Please ensure that your birthday is correctly entered to verify your age."
+    }
+  }
