@@ -11,6 +11,7 @@ import banner1 from './assets/banner1.jpg'
 import banner2 from './assets/banner2.jpg'
 import { StaticImageData } from 'next/image'
 import Header from './components/header';
+import Footer from './components/footer';
 
 
 // Define a Movie interface
@@ -108,10 +109,6 @@ const page = () => {
       console.log("error", err);
     }
   };
-
-  //ending customization
-
-
   return (
     <div className="container mb-20 mx-auto p-2">
       <Header  />
@@ -141,8 +138,6 @@ const page = () => {
           ))}
         </ul>
       </div>
-
-      {/* Video Player Section */}
       {currentVideoUrl && (
         <div className="mt-4 flex justify-center relative"> 
           <iframe
@@ -156,17 +151,17 @@ const page = () => {
         </div>
       )}
 
-      {/* Transaction Link Section */}
-      {attestAtationTx && ( // Added transaction link display
-        <div className="flex justify-center mt-4"> {/* Centering the transaction link */}
+      {attestAtationTx && (
+        <div className="flex justify-center mt-4"> 
           <label>AttestationTx:</label>
           <a href={"https://explorer-holesky.morphl2.io/tx/" + attestAtationTx} target="_blank" rel="noopener noreferrer" className="ml-2"> {/* Added margin for spacing */}
             {attestAtationTx}
           </a>
         </div>
       )}
-
+      <Footer />
     </div>
+    
   )
 }
 
