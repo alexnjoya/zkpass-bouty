@@ -33,18 +33,18 @@ declare global {
 }
 
 const page = () => {
-  const [appid1, setAppid1] = useState<string>("fc110457-b954-482a-b73d-710316120d2c");
-  const [value1, setValue1] = useState<string>("ec0661b638474c16b59621a44951d14a");
+  const [appid1, setAppid1] = useState<string>("c670896a-5d6d-4e21-bb49-4d2301279a99");
+  const [value1, setValue1] = useState<string>("675891e827e84d94b2f1682f09f4a344");
   const [result, setResult] = useState<any>();
   const [attestAtationTx, setAttestAtationTx] = useState<string>();
+  const [currentVideoUrl, setCurrentVideoUrl] = useState<string | null>(null);
 
 
   // Starting customization 
 
 
-  const start = async (schemaId: string, appid: string) => {
+  const start = async (schemaId: string, appid: string, videoUrl: string) => {
     try {
-      const appid = "8fb9d43c-2f24-424e-a98d-7ba34a5532f5"
       const connector = new TransgateConnect(appid);
       const isAvailable = await connector.isTransgateAvailable();
       if (!isAvailable) {
@@ -98,6 +98,13 @@ const page = () => {
       const t = await contract.attest(chainParams);
       setAttestAtationTx(t.hash);
       alert("Transaction sent successfully!");
+      // Open the video URL after the alert
+      if (movies.length > 0) {
+        window.open(movies[0].videoUrl);
+      }
+
+      // Set the current video URL to play
+      setCurrentVideoUrl(videoUrl);
     } catch (err) {
       alert(JSON.stringify(err));
       console.log("error", err);
@@ -107,27 +114,25 @@ const page = () => {
   //ending customization
 
 
-
-
   return (
     <div className="container mx-auto p-2">
       <h1 className="text-4xl font-bold mb-6 text-center">Trending Movies</h1>
 
-      <div className='flex justify-center  items-center pl-5  mx-auto' >
+      <div className='flex justify-center items-center pl-5 mx-auto'>
         <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
           {movies.map((movie, index) => (
             <li key={index} className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               <Image
-                src={banner} // Use the imported image here
+                src={banner} 
                 alt={`${movie.title} banner`}
-                className="w-full h-48 object-cover rounded-t-lg" // Add styling as needed
+                className="w-full h-48 object-cover rounded-t-lg" 
               />
               <h2 className="text-xl font-semibold">{movie.title}</h2>
               <p className="text-gray-600">({movie.year})</p>
               <p className="text-gray-500 italic">Directed by {movie.director}</p>
               <div className="mt-2">
                 <button
-                  onClick={() => window.open(movie.videoUrl, '_blank')}
+                  onClick={() => start(value1, appid1, movie.videoUrl)} // Pass videoUrl
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
                   Watch Video
@@ -138,6 +143,21 @@ const page = () => {
         </ul>
       </div>
 
+      {/* Video Player Section */}
+      {currentVideoUrl && (
+        <div className="mt-4 flex justify-center"> {/* Centering the iframe */}
+          <h2 className="text-2xl font-bold mb-10">Now Playing:</h2>
+          <iframe
+            width="560"
+            height="315"
+            src={currentVideoUrl.replace("watch?v=", "embed/")} // Embed format
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      )}
     </div>
   )
 }
