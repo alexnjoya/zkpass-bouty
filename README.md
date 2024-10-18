@@ -40,7 +40,7 @@ Follow these steps to set up the project locally:
 
 - Head over to https://dev.zkpass.org/ to create a new project and a custom schema.
 - Replace the `apid` and the `schemaid` in the project in the `page.tsx` file.
-# NOTE: Make sure your project domain is `localhost:3000` when testing locally, and replace it with your own domain when deploying.
+### NOTE: Make sure your project domain is `localhost:3000` when testing locally, and replace it with your own domain when deploying.
 
 ## Usage
 
