@@ -11,12 +11,12 @@
         },
         "assert": [
           {
-            "key": "data|fillInfo|dob",
-            "value": "2005-01-01",
-            "operation": "<="
+            "key": "data|fillInfo|country",
+            "value": "GH",
+            "operation": "=="
           }
         ],
-        "nullifier": "data|fillInfo|dob"
+        "nullifier": "data|fillInfo|country"
       }
     ],
     "HRCondition": [
