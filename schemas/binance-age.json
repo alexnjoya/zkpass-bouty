@@ -1,20 +1,21 @@
 {
     "issuer": "Binance",
     "desc": "Binance KYC age verification schema",
-    "website": "https://www.binance.com",
+    "website": "https://www.binance.com/en/my/dashboard",
     "APIs": [
         {
             "host": "www.binance.com",
             "intercept": {
                 "url": "bapi/kyc/v1/private/kyc/user-kyc/get-personal-detail",
-                "method": "GET"
+                "method": "POST"
             },
             "assert": [
                 {
-                    "key": "birthday",
+                    "key": "fillInfo.dob",
                     "value": "2005-11-12",
                     "operation": "<="
                 }
+           
             ],
             "nullifier": "birthday"
         }
