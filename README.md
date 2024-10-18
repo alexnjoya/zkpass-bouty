@@ -1,4 +1,4 @@
-# Front-End JS SDK Project
+# zkPass TransGate SDK
 
 This project is a front-end application built with React that integrates with the zkPass TransGate SDK to manage movie data and video playback.
 
