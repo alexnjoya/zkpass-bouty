@@ -7,7 +7,7 @@ const Header: React.FC = () => {
       <nav className="flex fixed top-0 mt-5  justify-end items-center">
       
       <div className='flex  justify-start'>
-      <h1 className="text-white ml-2 flex justify-start text-2xl">MoveMe</h1>
+      <h1 className="text-white hover:text-gray-300 ml-2 flex justify-start text-2xl">MoveMe</h1>
       </div>
       <div className='flex justify-end ml-20'>
       <ul className="flex justify-end space-x-5 ml-auto">
