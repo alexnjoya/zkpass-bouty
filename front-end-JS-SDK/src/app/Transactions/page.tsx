@@ -1,7 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 
-
 interface TransactionsProps {
   attestAtationTx: string | undefined;
 }
