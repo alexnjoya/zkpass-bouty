@@ -96,7 +96,7 @@ const page = () => {
       const t = await contract.attest(chainParams);
       setAttestAtationTx(t.hash);
       alert("Transaction sent successfully!"); 
-      // Set the current video URL to play
+     
       setCurrentVideoUrl(videoUrl); 
     } catch (err) {
       alert(JSON.stringify(err));
