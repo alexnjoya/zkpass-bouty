@@ -106,7 +106,7 @@ const page = () => {
   return (
     <div className="container mb-20 mx-auto p-2">
       <Header  />
-      <h2 className="text-4xl font-bold ml-7 mt-10 mb-6 text-left">Trending Movies</h2>
+      <h2 className="text-4xl font-bold ml-7 mt-10 mb-6 text-left">Only Ghanaians</h2>
 
       <div className='flex justify-center items-center pl-5 mx-auto'>
         <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
