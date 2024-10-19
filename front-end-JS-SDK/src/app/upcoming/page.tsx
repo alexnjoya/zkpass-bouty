@@ -11,6 +11,10 @@ import banner0 from '../assets/banner0.jpg';
 import banner1 from '../assets/banner1.jpg';
 
 import banner2 from '../assets/banner2.jpg';
+import banner4 from '../assets/banner4.jpg';
+import banner5 from '../assets/banner5.jpg';
+import banner6 from '../assets/banner6.jpg';
+
 
 
 // Movie interface
@@ -30,12 +34,12 @@ interface Movie {
 // Movie data
 const movies: Movie[] = [
   { title: "Inception", year: 2010, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D", banner: banner0 },
-  { title: "The Matrix", year: 1999, director: "The Wachowskis", videoUrl: "https://www.youtube.com/watch?v=uY5oF0tZiWI&pp=ygUWYmVzdCBtb3ZpZXMgb2YgYWxsdGltZQ%3D%3D", banner: banner1 },
+  { title: "The Matrix", year: 1999, director: "The Wachowskis", videoUrl: "https://www.youtube.com/watch?v=uY5oF0tZiWI&pp=ygUWYmVzdCBtb3ZpZXMgb2YgYWxsdGltZQ%3D%3D", banner: banner5 },
   { title: "Interstellar", year: 2014, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=bCE_OXANUG0&pp=ygUZdG9wIDEwIGFjdGlvbiBtb3ZpZXMgMjAyMw%3D%3D", banner: banner2 },
   // New movies added
-  { title: "The Dark Knight", year: 2008, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=EXeTwQWrcwY", banner: banner0 }, // Replace with actual banner
+  { title: "The Dark Knight", year: 2008, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=EXeTwQWrcwY", banner: banner4 }, // Replace with actual banner
   { title: "Fight Club", year: 1999, director: "David Fincher", videoUrl: "https://www.youtube.com/watch?v=SUXWA_9Ip6g", banner: banner1 }, // Replace with actual banner
-  { title: "Pulp Fiction", year: 1994, director: "Quentin Tarantino", videoUrl: "https://www.youtube.com/watch?v=s7EdQ4FqbhY", banner: banner2 }, // Replace with actual banner
+  { title: "Pulp Fiction", year: 1994, director: "Quentin Tarantino", videoUrl: "https://www.youtube.com/watch?v=s7EdQ4FqbhY", banner: banner6 }, // Replace with actual banner
 ];
 
 

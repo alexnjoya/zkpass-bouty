@@ -7,7 +7,7 @@ import { Res } from "./lib/types";
 import verifyEvmBasedResult from "./verifyEvmBasedResult";
 import Image from 'next/image'
 import banner0 from './assets/banner0.jpg'
-import banner1 from './assets/banner1.jpg'
+import banner5 from './assets/banner5.jpg'
 import banner2 from './assets/banner2.jpg'
 import { StaticImageData } from 'next/image'
 import Header from './components/header';
@@ -26,7 +26,7 @@ interface Movie {
 //  movie data
 const movies: Movie[] = [
   { title: "Inception", year: 2010, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=TXfltmzRG-g&t=9s&pp=ygUcaHR0cHM6Ly95b3V0dS5iZS9UWGZsdG16UkctZw%3D%3D", banner: banner0  },
-  { title: "The Matrix", year: 1999, director: "The Wachowskis", videoUrl: "https://www.youtube.com/watch?v=uY5oF0tZiWI&pp=ygUWYmVzdCBtb3ZpZXMgb2YgYWxsdGltZQ%3D%3D", banner: banner1  },
+  { title: "The Matrix", year: 1999, director: "The Wachowskis", videoUrl: "https://www.youtube.com/watch?v=uY5oF0tZiWI&pp=ygUWYmVzdCBtb3ZpZXMgb2YgYWxsdGltZQ%3D%3D", banner: banner5  },
   { title: "Interstellar", year: 2014, director: "Christopher Nolan", videoUrl: "https://www.youtube.com/watch?v=bCE_OXANUG0&pp=ygUZdG9wIDEwIGFjdGlvbiBtb3ZpZXMgMjAyMw%3D%3D", banner: banner2  }, // Added new movie
 ];
 
