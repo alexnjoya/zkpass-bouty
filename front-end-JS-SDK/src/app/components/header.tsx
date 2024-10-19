@@ -39,7 +39,7 @@ const Header: React.FC = () => {
             
           </ul>
         </div>
-        <div className="ml-[500px]">
+        <div className="ml-[600px]">
             <button 
               onClick={connectWallet} 
               className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
