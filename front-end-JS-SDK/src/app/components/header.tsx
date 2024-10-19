@@ -29,7 +29,12 @@ const Header: React.FC = () => {
     <header className="p-4 mt-10 ">
       <nav className="flex fixed top-0 mt-5 justify-end items-center">
         <div className='flex justify-start'>
-          <h1 className="text-white hover:text-gray-300 ml-2 flex justify-start text-2xl">MoveMe</h1>
+          <h1 
+            className="text-white hover:text-gray-300 ml-2 flex justify-start text-2xl cursor-pointer" 
+            onClick={() => window.location.href = '/'} // Navigate to home page on click
+          >
+            MoveMe
+          </h1>
         </div>
         <div className='flex justify-end ml-20'>
           <ul className="flex justify-end space-x-6 ml-auto">
@@ -37,10 +42,10 @@ const Header: React.FC = () => {
               <Link href="/" className="text-white flex justify-end hover:text-gray-300">All-time-top</Link>
             </li>
             <li>
-              <Link href="/transactions" className="text-white flex justify-end hover:text-gray-300">Transactions</Link>
+              <Link href="./Transactions" className="text-white flex justify-end hover:text-gray-300">Transactions</Link>
             </li>
             <li>
-              <Link href="/upcoming" className="text-white bg-red-500 p-1 rounded-md flex justify-end hover:text-gray-300">Upcoming</Link>
+              <Link href="./upcoming" className="text-white bg-red-500 p-1 rounded-md flex justify-end hover:text-gray-300">Upcoming</Link>
             </li>
           </ul>
         </div>
