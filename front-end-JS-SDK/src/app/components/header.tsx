@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'; // Added useState for managing wallet connection
 import { ethers } from 'ethers'; 
 
