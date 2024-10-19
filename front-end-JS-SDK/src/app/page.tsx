@@ -93,10 +93,13 @@ const page = () => {
         validatorSignature: res.validatorSignature,
       };
 
-     
-      
+      // Send the transaction and capture the transaction hash
+      const txResponse = await contract.attest(chainParams); 
+      setAttestAtationTx(txResponse.hash); 
+
+      await txResponse.wait(); 
+
       alert("Transaction sent successfully!"); 
-     
       setCurrentVideoUrl(videoUrl); 
     } catch (err) {
       alert(JSON.stringify(err));
