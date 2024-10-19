@@ -135,7 +135,7 @@ const page = () => {
       {currentVideoUrl && (
         <div className="mt-4 flex justify-center relative"> 
           <iframe
-            width="800"
+            width="900"
             height="500"
             src={`https://www.youtube.com/embed/${new URL(currentVideoUrl).searchParams.get("v")}?autoplay=1`} // Updated to extract video ID for embedding
             title="YouTube video player"
