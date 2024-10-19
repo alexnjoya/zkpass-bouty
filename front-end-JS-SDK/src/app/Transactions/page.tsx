@@ -1,70 +1,90 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import AttestationABI from "../components/AttestationABI.json"; // Adjust the path as necessary
-import { Res } from "../lib/types"; // Adjust the path as necessary
-import { fetchAttestationsByTx } from '../lib/api'; // Function to fetch attestations
+import TransgateConnect from "@zkpass/transgate-js-sdk";
+import AttestationABI from "../AttestationABI.json";
+import { Res } from "../lib/types";
+import verifyEvmBasedResult from "../verifyEvmBasedResult";
 import Header from '../components/header';
 import Footer from '../components/footer';
+
+// ... existing imports ...
 
 const TransactionsPage: React.FC = () => {
   const [attestAtationTx, setAttestAtationTx] = useState<string | undefined>(undefined);
   const [attestations, setAttestations] = useState<any[]>([]);
 
-  // Function to fetch attestations based on transaction hash
-  const fetchAttestations = async (txHash: string) => {
+  // Removed fetchAttestations function and API call
+  // Added logic to handle attestations directly
+
+  const startAttestation = async (schemaId: string, appid: string) => {
     try {
-      const response = await fetch(`https://your-api-endpoint.com/attestations/${txHash}`); // Replace with your actual API endpoint
-      if (!response.ok) {
-        throw new Error('Failed to fetch attestations');
+      const connector = new TransgateConnect(appid);
+      const isAvailable = await connector.isTransgateAvailable();
+      if (!isAvailable) {
+        return alert("Please install zkPass TransGate");
       }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching attestations:", error);
-      return [];
+      if (window.ethereum == null) {
+        return alert("MetaMask not installed");
+      }
+      if (Number(window.ethereum.chainId) !== 2810) {
+        return alert("Please switch to Morph network");
+      }
+
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const account = await signer.getAddress();
+
+      const contractAddress = "0x79208010a972D0C0a978a9073bd0dcb659152072";
+      const contract = new ethers.Contract(
+        contractAddress,
+        AttestationABI,
+        signer
+      );
+
+      const res = await connector.launch(schemaId, account) as Res;
+      const isVerified = verifyEvmBasedResult(res, schemaId);
+
+      if (!isVerified) {
+        return alert("Invalid result");
+      }
+
+      const taskId = ethers.hexlify(ethers.toUtf8Bytes(res.taskId));
+      schemaId = ethers.hexlify(ethers.toUtf8Bytes(schemaId));
+
+      const chainParams = {
+        taskId,
+        schemaId,
+        uHash: res.uHash,
+        recipient: account,
+        publicFieldsHash: res.publicFieldsHash,
+        validator: res.validatorAddress,
+        allocatorSignature: res.allocatorSignature,
+        validatorSignature: res.validatorSignature,
+      };
+
+      const t = await contract.attest(chainParams);
+      setAttestAtationTx(t.hash);
+      alert("Transaction sent successfully!");
+    } catch (err) {
+      alert(JSON.stringify(err));
+      console.log("error", err);
     }
   };
 
   useEffect(() => {
-    const loadAttestations = async () => {
-      if (attestAtationTx) {
-        const fetchedAttestations = await fetchAttestations(attestAtationTx);
-        setAttestations(fetchedAttestations);
-      }
-    };
-    loadAttestations();
+    if (attestAtationTx) {
+      // Logic to handle attestations can be added here if needed
+    }
   }, [attestAtationTx]);
 
   return (
-    <div className="container mb-20 mx-auto p-2 text-center"> {/* Centered text */}
+    <div className="container mb-20 mx-auto p-2 text-center">
       <Header />
-      <h1 className="text-4xl font-bold mt-10 mb-6">Transactions</h1> {/* Removed ml-7 and text-left */}
+      <h1 className="text-4xl font-bold mt-10 mb-6">Transactions</h1>
       
-      {attestations.length > 0 ? (
-        <div>
-          <h2 className="text-2xl font-bold">Attestations</h2>
-          <table className="min-w-full border-collapse border border-white mx-auto"> {/* Centered table */}
-            <thead>
-              <tr>
-                <th className="border border-white p-2">Index</th>
-                <th className="border border-white p-2">Attestation</th>
-              </tr>
-            </thead>
-            <tbody>
-              {attestations.map((attestation, index) => (
-                <tr key={index}>
-                  <td className="border border-white p-2">{index}</td>
-                  <td className="border border-white p-2">{JSON.stringify(attestation)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <p>No attestations found.</p>
-      )}
-
       {attestAtationTx && (
         <div className="flex justify-center mt-4"> 
           <label>AttestationTx:</label>

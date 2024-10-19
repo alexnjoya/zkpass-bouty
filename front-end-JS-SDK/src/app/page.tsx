@@ -93,8 +93,8 @@ const page = () => {
         validatorSignature: res.validatorSignature,
       };
 
-      const t = await contract.attest(chainParams);
-      setAttestAtationTx(t.hash);
+     
+      
       alert("Transaction sent successfully!"); 
      
       setCurrentVideoUrl(videoUrl); 
