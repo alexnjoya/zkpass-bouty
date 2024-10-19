@@ -1,10 +1,10 @@
 'use client'
-import React, { useState } from 'react'; // Added useState for managing wallet connection
+import React, { useState } from 'react'; 
 import { ethers } from 'ethers'; 
-import Link from 'next/link'; // Import Link from next/link
+import Link from 'next/link'; 
 
 const Header: React.FC = () => {
-  const [walletAddress, setWalletAddress] = useState<string | null>(null); // State to store wallet address
+  const [walletAddress, setWalletAddress] = useState<string | null>(null); 
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -31,7 +31,7 @@ const Header: React.FC = () => {
         <div className='flex justify-start'>
           <h1 
             className="text-white hover:text-gray-300 ml-2 flex justify-start text-2xl cursor-pointer" 
-            onClick={() => window.location.href = '/'} // Navigate to home page on click
+            onClick={() => window.location.href = '/'} 
           >
             MoveMe
           </h1>
